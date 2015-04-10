@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:id="@+id/app_name">
+
+    <!-- General layout of android XML are as follows:
+    Every view in an android app needs to also be created in an xml file for the .java file that it appears in.
+    
+    The id is the id that is set to the views/buttons so that your code call the id as needed
+    for example, in Main.java, option2 is set to: (Button) findViewById(R.id.answer2); which would give button 10 the attributes of id answer2
+     
+     The layouts align the views onto the screen as set by you. The TextView below is using relative layouts,
+     it is centered on the vertical axis and has content wrapping enabled. For the buttons below, you can see that
+     they are spaced relative to eachother, in this case, above the other
+     
+     If the views have text, the strings that are used are pulled from strings.xml
+     For example, the text prompt below uses a string called enter_bill, whose value is 
+     inside strings.xml (Enter total bill amount)
+     -->
+
+    <!-- A view that prompts the user to enter a bill -->
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/question"
+        android:textSize="20sp" />
+
+    <!-- A field for the Main screen, for people to input name -->
+        <!--<EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/question"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:ems="10"
+        android:inputType="numberDecimal" >
+
+        <requestFocus />
+    </EditText>-->
+    <!-- Button for Yes  -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_1"
+        android:id="@+id/answer1"
+        android:layout_above="@+id/answer2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
+
+    <!-- Button for No -->
+    <Button
+        android:id="@+id/answer2"
+        android:text="@string/button_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"/>
+
+    <!-- Text view for "select tip" on the main menu-->
+    <TextView
+        android:id="@+id/tip_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="@string/select_tip"
+        android:layout_above="@+id/answer1"
+        android:layout_centerHorizontal="true" />
+
+
+
+</RelativeLayout>
