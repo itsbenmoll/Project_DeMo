@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,12 +23,13 @@
      -->
 
     <!-- A view that prompts the user to enter a bill -->
+
     <TextView
-        android:id="@+id/question"
+        android:id="@+id/randomTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/question"
+        android:text="@array/question"
         android:textSize="20sp" />
 
     <!-- A field for the Main screen, for people to input name -->
