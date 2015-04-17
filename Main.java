@@ -18,10 +18,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Random;
+
 
 //Extends = inherits, implements means it interfaces with another class
 public class Main extends Activity implements OnClickListener
+
 {
     //Declaring and setting string variables
     private static final String TAG_DEBUG = Main.class.getName();
@@ -60,16 +64,46 @@ public class Main extends Activity implements OnClickListener
 		 * */
         option1.setOnClickListener(this);
         option2.setOnClickListener(this);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        mTestArray =   getResources().getStringArray(R.array.question);
     }
 
+    String[] mTestArray;
+
+    //@Override
+    //protected void onCreate(Bundle savedInstanceState) {
+    //    super.onCreate(savedInstanceState);
+    //    setContentView(R.layout.sample);
+
+    //    mTestArray =   getResources().getStringArray(R.array.question);
+
+    //}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateTextView();
+    }
+
+    private void updateTextView() {
+        TextView textView = (TextView)findViewById(R.id.randomTextView);
+        Random random = new Random();
+
+        int maxIndex = mTestArray.length;
+        int generatedIndex = random.nextInt(maxIndex);
+
+        textView.setText(mTestArray[generatedIndex]);
+    }
     @Override
 	/*onClick is what is called when the buttons are pressed and they take in Views as arguments
 	 * as buttons are children of the view class, buttons can polymorphically be passed in. The button
 	 * that called the onClick is automatically fed in*/
     public void onClick(View v)
     {
-        double myScore1 = 0.0d;
-        double myScore2 = 0.0d;
+        double myScore1 = 0.0;
+        double myScore2 = 0.0;
 
         //The switch statements grab the id values of the button pressed and calculates the tip accordingly
         switch(v.getId()){
@@ -138,4 +172,5 @@ public class Main extends Activity implements OnClickListener
         //Launches the new activity
         startActivity(resultActivity);
     }
+
 }
