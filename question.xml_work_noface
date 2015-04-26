@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffd7fffd"
+
+    android:padding="10dp" >
+
+    <!-- General layout of android XML are as follows:
+    Every view in an android app needs to also be created in an xml file for the .java file that it appears in.
+
+    The id is the id that is set to the views/buttons so that your code call the id as needed
+    for example, in Main.java, button10 is set to: (Button) findViewById(R.id.tip10); which would give button 10 the attributes of id tip10
+
+     The layouts align the views onto the screen as set by you. The TextView below is using relative layouts,
+     it is centered on the vertical axis and has content wrapping enabled. For the buttons below, you can see that
+     they are spaced relative to eachother, in this case, above the other
+
+     If the views have text, the strings that are used are pulled from strings.xml
+     For example, the text prompt below uses a string called enter_bill, whose value is
+     inside strings.xml (Enter total bill amount)
+     -->
+
+    <!-- A view that prompts the user to enter a bill -->
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="@string/dog"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:paddingTop="100dp"/>
+
+
+
+
+    <!-- Button for 15% tip -->
+    <Button
+        android:id="@+id/nocount"
+        android:text="@string/button_no"
+        android:shape="rectangle"
+        android:radius="3dip"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:background="#ff2c2fff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+    -->
+    <!-- Button for 10% tip -->
+    <Button
+        android:id="@+id/yescount"
+        android:text="@string/button_yes"
+        android:shape="rectangle"
+        android:radius="3dip"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:textStyle="bold"
+        android:background="#ffff7667"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <!-- Text view for "select tip" on the main menu-->
+
+
+</RelativeLayout>
