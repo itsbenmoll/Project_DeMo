@@ -1,0 +1,208 @@
+package com.liz.thedemofinal.thedemofinal;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+public class Result extends Activity implements OnClickListener {
+    //Initializes TextViews to display total and tip
+    private TextView yesTextView;
+    private TextView noTextView;
+
+    //Initializes a button
+    private Button finished;
+    private Button facebook;
+    private Button next;
+    double counter = 0;
+    //static double[] percentno;
+    //static double[] PERCENTNO;
+    //static double[] percentyes;
+    //static double[] totalyes;
+    //private static double[] totalno;
+    //static double list;
+
+    @Override
+    //When this activity is called, onCreate is called
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //How this activity actually looks is set inside result.xml
+        setContentView(R.layout.result);
+
+		/*Set the texts views so they display according to the parameters in result.xml*/
+        yesTextView = (TextView) findViewById(R.id.yestimes);
+        noTextView = (TextView) findViewById(R.id.notimes);
+
+        //Runs the method to use the values calculated in the Main Activity class
+        initializeTextViews();
+
+        //Initializes button to the parameters in result.xml
+        finished = (Button) findViewById(R.id.confirm);
+        facebook = (Button) findViewById(R.id.facebook);
+        next = (Button) findViewById(R.id.next);
+       // percentno = new double[20];
+       // percentyes = new double[20];
+       // totalyes = new double[20];
+        //totalno = new double[20];
+         ArrayList<Double> listno = new ArrayList<Double>();
+
+        //finished.setOnClickListener(onClickListener);
+        //facebook.setOnClickListener(onClickListener);
+        //next.setOnClickListener(onClickListener);
+
+        //Sets an onClickListener for the finished button
+        finished.setOnClickListener(new OnClickListener()
+
+        {
+            @Override
+            //If clicked, call the finish method
+            public void onClick(View v) {
+                //Finish ends the current activity and goes back to the activity that called this one (Main in this case)
+                finish();
+            }
+        });
+
+        facebook = (Button) findViewById(R.id.facebook);
+
+
+        facebook.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchResultActivity();
+            }
+        });
+        next = (Button) findViewById(R.id.next);
+        next.setOnClickListener(this);
+
+    }
+
+    /*
+        @Override
+        public void onClick(View v) {
+            launchResultActivity();
+
+        }
+    */
+    /*
+    double counter = 0;
+    static double[] percentno;
+    //static double[] PERCENTNO;
+    static double[] percentyes;
+    static double[] totalyes;
+    private static double[] totalno;
+    */
+    //percentno = new double[20];
+    /*
+    private static void setPercentno(double[] percentno) {
+        Result.percentno[0] = percentno[0];
+    }
+    public static void setTotalno(double[] totalno) {
+        Result.totalno = totalno;
+    }
+    */
+  // private  static final PERCENTNO = double[20];
+
+        @Override
+        public void onClick(View v) {
+            double percent1 = getIntent().getExtras().getDouble(Question.TAG_P1);
+            double percent2 = getIntent().getExtras().getDouble(Question.TAG_P2);
+            double yes = getIntent().getExtras().getDouble(Question.TAG_YES);
+            double no = getIntent().getExtras().getDouble(Question.TAG_NO);
+
+
+
+
+                    counter = counter + 1;
+                    if (counter == 1) {
+                        TextView tv = (TextView) findViewById(R.id.next);
+                        tv.setText("Next");
+                        TextView mv = (TextView) findViewById(R.id.questions);
+                        mv.setText("Baby");
+                        TextView wv = (TextView) findViewById(R.id.yestimes);
+                        wv.setText("Percentage of yes votes: ");
+                        TextView yv = (TextView) findViewById(R.id.notimes);
+                        yv.setText("Percentage of no votes: ");
+
+                        String currentYesText1 = yesTextView.getText().toString();
+
+                        currentYesText1 = currentYesText1 + percent1;
+
+                        String currentNoText1 = noTextView.getText().toString();
+                        double percentno = 100 - percent1;
+                        currentNoText1 =  currentNoText1 + percentno;
+                        yesTextView.setText(currentYesText1);
+                        noTextView.setText(currentNoText1);
+
+
+                    }
+                    if (counter == 2) {
+                        yesTextView.setText("Percentage of yes votes: ");
+                        noTextView.setText("Percentage of no votes: ");
+                        TextView mv = (TextView) findViewById(R.id.questions);
+                        mv.setText("fuck yeah");
+
+
+                        String currentYesText2 = yesTextView.getText().toString();
+
+                        currentYesText2 = currentYesText2 + percent2;
+
+                        String currentNoText2 = noTextView.getText().toString();
+                        double percentno = 100 - percent2;
+                        currentNoText2 = currentNoText2 + percentno;
+                        yesTextView.setText(currentYesText2);
+                        noTextView.setText(currentNoText2);
+
+            }
+
+
+        }
+
+
+    private void launchResultActivity() {
+
+        Intent resultActivity = new Intent(Result.this, MainActivity.class);
+
+        startActivity(resultActivity);
+    }
+
+
+    @Override
+    public View findViewById(int id) {
+        return super.findViewById(id);
+    }
+
+    public void initializeTextViews() {
+        //Sets doubles according to the values "pushed" from Main.java
+        double yes = getIntent().getExtras().getDouble(Question.TAG_YES);
+        double no = getIntent().getExtras().getDouble(Question.TAG_NO);
+        // double[] place = getIntent().getExtras().getDoubleArray(Question.TAG_PLACE);
+
+        //double my = place[0];
+
+        //Sets the strings accordingly
+        String currentYesText = yesTextView.getText().toString();
+
+        currentYesText = currentYesText + yes;
+
+        String currentNoText = noTextView.getText().toString();
+
+        currentNoText = currentNoText + no;
+        //double my = place[0];
+
+        //Sets the texts to display the values
+        yesTextView.setText(currentYesText);
+        noTextView.setText(currentNoText);
+
+    }
+
+
+
+    //double my = place[0];
+
+}
