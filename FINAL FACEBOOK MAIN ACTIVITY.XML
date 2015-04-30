@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:background="#ffff554b">
+
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_above="@+id/input"
+        android:layout_below="@+id/login_button"
+        android:layout_margin="10dp"
+        android:textSize="16sp"/>
+
+
+
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffafe"
+        android:visibility="invisible"
+        android:background="#3b5998"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+   <!-- <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/frameLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"> -->
+
+        <Button
+            android:id="@+id/post"
+            android:layout_width="163dp"
+            android:layout_height="62dp"
+            android:text="POST TO FB"
+            android:textColor="#fffffafe"
+            android:background="#3b5998"
+            android:layout_gravity="left|bottom"
+            android:layout_above="@+id/confirm"
+            android:layout_alignEnd="@+id/confirm"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="163dp"
+            android:layout_height="62dp"
+            android:text="FINISHED"
+            android:background="#DBADB6C1"
+            android:layout_gravity="bottom"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignEnd="@+id/input" />
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_gravity="center"
+            android:inputType="text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/post_to_fb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/post_to_fb"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_below="@+id/login_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="61dp" />
+        <!--android:layout_gravity="center" -->
+
+
+
+
+
+</RelativeLayout>
