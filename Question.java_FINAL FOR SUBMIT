@@ -1,0 +1,412 @@
+//import is #include from C++
+package com.psamolisgmail.www.demo;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+//Extends = inherits, implements means it interfaces with another class
+public class Question extends Activity implements OnClickListener
+{
+    //Declaring and setting string variables
+    private static final String TAG_DEBUG = Question.class.getName();
+    public static final String TAG_YES = "yes";
+    public static final String TAG_NO = "no";
+    public static final String TAG_P1 = "p1";       //this is the start of the percentages for each percentage
+    public static final String TAG_P2 = "p2";
+    public static final String TAG_P3 = "p3";
+    public static final String TAG_P4 = "p4";
+    public static final String TAG_P5 = "p5";
+    public static final String TAG_P6 = "p6";
+    public static final String TAG_P7 = "p7";
+    public static final String TAG_P8 = "p8";
+    public static final String TAG_P9 = "p9";
+    public static final String TAG_P10 = "p10";
+    public static final String TAG_P11= "p11";
+    public static final String TAG_P12 = "p12";
+    public static final String TAG_P13 = "p13";
+    public static final String TAG_P14 = "p14";
+    public static final String TAG_P15 = "p15";
+    public static final String TAG_P16 = "p16";
+    public static final String TAG_P17 = "p17";
+    public static final String TAG_P18 = "p18";
+    public static final String TAG_P19 = "p19";
+
+
+    //Creating the EditText object
+    private EditText et;
+
+    //Creates the buttons
+    private Button buttonyes;
+    private Button buttonno;
+
+
+    @Override
+	/*An onCreate method/function is what is called when a screen is first showed.
+	  In this case, this is the main menu screen.
+	*/
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        //The super keyword is used to refer to the parent class in java
+        super.onCreate(savedInstanceState);
+
+        //How the activity actually looks is inside main.xml, inside the layout folder
+        setContentView(R.layout.question);
+
+        //The buttons have parameters corresponding to the IDs in Main.xml
+        buttonyes = (Button) findViewById(R.id.yescount);
+        buttonno = (Button) findViewById(R.id.nocount);
+
+        //sends the buttons to the onclicklistener
+        buttonyes.setOnClickListener(this);
+        buttonno.setOnClickListener(this);
+
+    }
+
+    double counter = 0;             //this keeps track of which question is being voted on
+    static double yescounter = 0;   //keeps track of the number of yes votes
+    static double nocounter = 0;    //keeps track of the number of no votes
+    static double run =1;           //keeps track of which run through you are going through
+    //these are the  total yes's for each question
+    static double totalyes1,totalyes2,totalyes3,totalyes4,totalyes5,totalyes6,totalyes7,totalyes8,totalyes9,totalyes10,totalyes11,totalyes12,totalyes13,totalyes14,totalyes15,totalyes16,totalyes17,totalyes18,totalyes19;
+    //the percent the user clicks yes for each question is stored on these values
+    double percent1,percent2,percent3,percent4,percent5,percent6,percent7,percent8,percent9,percent10,percent11,percent12,percent13,percent14,percent15,percent16,percent17,percent18,percent19;
+    //this figures on the total nos for each question
+    double totalno;
+
+    @Override
+    public void onClick(View v)
+    {
+        //the counter is incremented, and this changes the question to the next question as its incremented
+        counter = counter + 1;
+        switch (v.getId()) {
+            case R.id.yescount: { //this is run when the yes button is clicked
+                //keeping tally of the total yescounter
+                yescounter = yescounter + 1;
+                if (counter == 1) {
+                    //changing to the next question
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you own a cat?");
+                    //this is the total number of yes votes for the first question
+                    totalyes1+=1;
+                    //this finds the percentage of yes votes
+                    percent1=(totalyes1/run)*100;
+                }
+                //each question beyond this point is identical to the first if statement, except for the variables change
+                else if (counter == 2){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you own a dog?");
+                    totalyes2+=1;
+                    percent2=(totalyes2/run)*100;
+                }
+                else if (counter == 3){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Have you ever been in love?");
+                    totalyes3+=1;
+                    percent3=(totalyes3/run)*100;
+                }
+                else if (counter == 4){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you believe aliens exist?");
+                    totalyes4+=1;
+                    percent4=(totalyes4/run)*100;
+
+                }
+                else if (counter == 5){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Have you ever seen a ghost?");
+                    totalyes5+=1;
+                    percent5=(totalyes5/run)*100;
+                }
+                else if (counter == 6){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like Boston?");
+                    totalyes6+=1;
+                    percent6=(totalyes6/run)*100;
+                }
+                else if (counter == 7){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like ice cream?");
+                    totalyes7+=1;
+                    percent7=(totalyes7/run)*100;
+                }
+                else if (counter == 8){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like country music?");
+                    totalyes8+=1;
+                    percent8=(totalyes8/run)*100;
+                }
+                else if (counter == 9){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Should Hilary Clinton be the next president?");
+                    totalyes9+=1;
+                    percent9=(totalyes9/run)*100;
+                }
+                else if (counter == 10){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you believe in God?");
+                    totalyes10+=1;
+                    percent10=(totalyes10/run)*100;
+                }
+                else if (counter == 11){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Would you ever go skydiving?");
+                    totalyes11+=1;
+                    percent11=(totalyes11/run)*100;
+                }
+                else if (counter == 12){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Have you ever been outside America?");
+                    totalyes12+=1;
+                    percent12=(totalyes12/run)*100;
+                }
+                else if (counter == 13){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Should Tsaernev get the death penalty?");
+                    totalyes13+=1;
+                    percent13=(totalyes13/run)*100;
+                }
+                else if (counter == 14){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like romantic comedies?");
+                    totalyes14+=1;
+                    percent14=(totalyes14/run)*100;
+                }
+                else if (counter == 15){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you read for fun?");
+                    totalyes15+=1;
+                    percent15=(totalyes15/run)*100;
+                }
+                else if (counter == 16){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Can you lick your elbow?");
+                    totalyes16+=1;
+                    percent16=(totalyes16/run)*100;
+                }
+                else if (counter == 17){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Did you just try to lick your elbow?");
+                    totalyes17+=1;
+                    percent17=(totalyes17/run)*100;
+                }
+                else if (counter == 18){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like oranges?");
+                    totalyes18+=1;
+                    percent18=(totalyes18/run)*100;
+                }
+                else if (counter == 19){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Did we get an A on this project?");
+                    TextView td = (TextView) findViewById(R.id.nocount);
+                    td.setText("YAY");
+                    totalyes19+=1;
+                    percent19=(totalyes19/run)*100;
+                }
+                break;
+            }
+            case R.id.nocount : {  //this is initiated when the no button is pressed
+                //another set of counters are placed in the nobutton so that the questions change no matter which button is pressed
+                nocounter = nocounter + 1;
+                if (counter == 1) {
+                    //the question is switched to the next question
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you own a cat?");
+
+                    //the percentage of the yes votes is determined here, but the totalyes1 is not incremented.
+                    percent1=(totalyes1/run)*100;
+                }
+                //like before the counters are almost identical to the one above except different variables
+                else if (counter == 2){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you own a dog?");
+
+                    percent2=(totalyes2/run)*100;
+                }
+                else if (counter == 3){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Have you ever been in love?");
+
+                    percent3=(totalyes3/run)*100;
+                }
+                else if (counter == 4){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you believe aliens exist?");
+
+                    percent4=(totalyes4/run)*100;
+
+
+                }
+                else if (counter == 5){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Have you ever seen a ghost?");
+
+                    percent5=(totalyes5/run)*100;
+                }
+                else if (counter == 6){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like Boston?");
+
+                    percent6=(totalyes6/run)*100;
+                }
+                else if (counter == 7){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like icecream?");
+
+                    percent7=(totalyes7/run)*100;
+                }
+                else if (counter == 8){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like country music?");
+
+                    percent8=(totalyes8/run)*100;
+                }
+                else if (counter == 9){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Should Hilary Clinton be the next president?");
+
+                    percent9=(totalyes9/run)*100;
+                }
+                else if (counter == 10){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you believe in God?");
+
+                    percent10=(totalyes10/run)*100;
+                }
+                else if (counter == 11){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Would you ever go skydiving?");
+
+                    percent11=(totalyes11/run)*100;
+                }
+                else if (counter == 12){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Have you ever been outside America?");
+
+                    percent12=(totalyes12/run)*100;
+                }
+                else if (counter == 13){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Should Tsaernev get the death penalty?");
+
+                    percent13=(totalyes13/run)*100;
+                }
+                else if (counter == 14){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like romantic comedies?");
+
+                    percent14=(totalyes14/run)*100;
+                }
+                else if (counter == 15){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you read for fun?");
+
+                    percent15=(totalyes15/run)*100;
+                }
+                else if (counter == 16){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Can you lick your elbow?");
+
+                    percent16=(totalyes16/run)*100;
+                }
+                else if (counter == 17){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Did you just try to lick your elbow?");
+
+                    percent17=(totalyes17/run)*100;
+                }
+                else if (counter == 18){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Do you like oranges?");
+
+                    percent18=(totalyes18/run)*100;
+                }
+                else if (counter == 19){
+                    TextView tv = (TextView) findViewById(R.id.question);
+                    tv.setText("Did we get an A on this project?");
+                    TextView td = (TextView) findViewById(R.id.nocount);
+                    td.setText("YAY");
+
+                    percent19=(totalyes19/run)*100;
+                }
+                break;
+            }
+            default : {
+                break;
+            }
+        }
+        if (counter == 20){
+            //this final counter calls the launch result activity
+            launchResultActivity(nocounter, yescounter,percent1,percent2,percent3,percent4,percent5,percent6,percent7,percent8,percent9,percent10,percent11,percent12,percent13,percent14,percent15,percent16,percent17,percent18,percent19);
+            //this is increments every time the app is run through in its entirety
+            run+=1;
+            //there is no percentage being calculated, because we already knows there's a 100% chance were getting an A on this project
+        }
+    }
+
+    private void launchResultActivity(double nocounter, double yescounter,double percent1, double percent2,double percent3,double percent4,double percent5,double percent6,double percent7,double percent8,double percent9,double percent10,double percent11,double percent12,double percent13,double percent14,double percent15,double percent16,double percent17,double percent18,double percent19)
+    {
+
+
+        //this takes you to the next screen
+        Intent resultActivity = new Intent(Question.this, Result.class);
+
+
+        //these values are getting pushed to the result page
+        resultActivity.putExtra(TAG_YES, yescounter); //number of times the yes button is pressed
+        resultActivity.putExtra(TAG_NO, nocounter);   //number of times the no button is pressed
+        resultActivity.putExtra(TAG_P1,percent1);      //the rest of these are individual yes percentages for each question
+        resultActivity.putExtra(TAG_P2,percent2);
+        resultActivity.putExtra(TAG_P3,percent3);
+        resultActivity.putExtra(TAG_P4,percent4);
+        resultActivity.putExtra(TAG_P5,percent5);
+        resultActivity.putExtra(TAG_P6,percent6);
+        resultActivity.putExtra(TAG_P7,percent7);
+        resultActivity.putExtra(TAG_P8,percent8);
+        resultActivity.putExtra(TAG_P9,percent9);
+        resultActivity.putExtra(TAG_P10,percent10);
+        resultActivity.putExtra(TAG_P11,percent11);
+        resultActivity.putExtra(TAG_P12,percent12);
+        resultActivity.putExtra(TAG_P13,percent13);
+        resultActivity.putExtra(TAG_P14,percent14);
+        resultActivity.putExtra(TAG_P15,percent15);
+        resultActivity.putExtra(TAG_P16,percent16);
+        resultActivity.putExtra(TAG_P17,percent17);
+        resultActivity.putExtra(TAG_P18,percent18);
+        resultActivity.putExtra(TAG_P19,percent19);
+
+
+        Log.d(TAG_DEBUG, "Tip: " + yescounter);
+        Log.d(TAG_DEBUG, "Grand Total: " + nocounter);
+        Log.d(TAG_DEBUG,"p1"+percent1);
+        Log.d(TAG_DEBUG,"p2"+percent2);
+        Log.d(TAG_DEBUG,"p3"+percent3);
+        Log.d(TAG_DEBUG,"p4"+percent4);
+        Log.d(TAG_DEBUG,"p5"+percent5);
+        Log.d(TAG_DEBUG,"p6"+percent6);
+        Log.d(TAG_DEBUG,"p7"+percent7);
+        Log.d(TAG_DEBUG,"p8"+percent8);
+        Log.d(TAG_DEBUG,"p9"+percent9);
+        Log.d(TAG_DEBUG,"p10"+percent10);
+        Log.d(TAG_DEBUG,"p11"+percent11);
+        Log.d(TAG_DEBUG,"p12"+percent12);
+        Log.d(TAG_DEBUG,"p13"+percent13);
+        Log.d(TAG_DEBUG,"p14"+percent14);
+        Log.d(TAG_DEBUG,"p15"+percent15);
+        Log.d(TAG_DEBUG,"p16"+percent16);
+        Log.d(TAG_DEBUG,"p17"+percent17);
+        Log.d(TAG_DEBUG,"p18"+percent18);
+        Log.d(TAG_DEBUG,"p19"+percent19);
+
+
+        //Launches the new activity
+        startActivity(resultActivity);
+    }
+}
