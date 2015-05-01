@@ -1,0 +1,207 @@
+package com.psamolisgmail.www.demo;
+
+import android.app.Activity;
+import android.app.DownloadManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.util.JsonReader;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.view.View.OnClickListener;
+
+
+
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookContentProvider;
+import com.facebook.FacebookDialog;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.Profile;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.internal.Utility;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.facebook.login.widget.ProfilePictureView;
+
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.protocol.ResponseConnControl;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.MalformedInputException;
+import java.util.Arrays;
+import java.util.HashMap;
+
+
+public class MainActivity extends Activity implements OnClickListener{
+
+    private LoginButton loginButton;
+    private CallbackManager callbackManager;
+    private TextView username;
+    private EditText input;
+    private TextView post_to_fb;
+    private Button post;
+    private Button finished;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //This initializes the Facebook sdk
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+
+        setContentView(R.layout.activity_main);
+        //This displays the user's name and a relative message once he posts on Facebook
+        username = (TextView) findViewById(R.id.username);
+
+        //This is the Post Button
+        post = (Button) findViewById(R.id.post);
+        input = (EditText) findViewById(R.id.input);
+        post_to_fb = (TextView) findViewById(R.id.post_to_fb);
+
+
+        post.setOnClickListener(this);
+        //The finished button takes the user back to the main/Welcome page
+        finished = (Button) findViewById(R.id.confirm);
+        finished.setOnClickListener(new OnClickListener() {
+            @Override
+            //If clicked, call the finish method.
+            public void onClick(View v) {
+                //Finish ends the current activity and goes back to the activity that called this one (Main in this case)
+                Intent intent = new Intent(MainActivity.this, Main.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+            }
+        });
+    }
+
+
+        @Override
+        public void onClick(View view){
+        //When the user clicks the Post button and if he hasn't logged in Facebook through his Facebook app then
+        //the following commands will initialize the Login Managed from the Facebook Sdk library.
+
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends"));
+        LoginManager.getInstance().logInWithPublishPermissions(this, Arrays.asList("publish_actions"));
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                accessToken.getPermissions();
+                Profile profile = Profile.getCurrentProfile();
+
+
+                if (profile != null) {
+                    //If he logs in successfully then it will display the following message on the screen
+
+                    username.setText("Thank you " + profile.getName()+ " for posting your question. Be sure to like our page and share our questions with your friends.");
+
+                    String question = input.getText().toString();
+
+                        Bundle params = new Bundle();
+                        params.putString("message", question);
+                        //This is a Facebook Request that allows us to Post on the Wall of our Facebook App page
+                        //That is why we included the page id specifically in the function feed.
+                        new GraphRequest(accessToken, "1833617650196965/feed", params, HttpMethod.POST,
+
+                                new GraphRequest.Callback() {
+                                    public void onCompleted(GraphResponse response) {
+                                        input.setVisibility(View.GONE);
+                                        post_to_fb.setVisibility(View.GONE);
+                                        post.setVisibility(View.GONE);
+                                        finished.setVisibility(View.VISIBLE);//"actions"
+                                    }
+                                }
+                        ).executeAsync();
+
+                }
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });
+    }
+
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+        View view=inflater.inflate(R.layout.activity_main,container,false);
+        loginButton=(LoginButton)view.findViewById(R.id.login_button);
+        return view;
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
+    }
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+
+    }
+
+
+}
