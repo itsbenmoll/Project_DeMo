@@ -1,0 +1,483 @@
+package com.psamolisgmail.www.demo;
+/*
+ * This is the results page that is displayed after you the onClick is called from Main.java
+ * */
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class Result extends Activity implements OnClickListener
+{
+    //Initializes TextViews to display yes and no counters and the percentages
+    private TextView yesTextView;
+    private TextView noTextView;
+
+    //Initializes the button
+    private Button finished;
+    private Button facebook;
+    private Button next;
+    double counter = 0;
+
+    @Override
+    //When this activity is called, onCreate is called
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //How this activity actually looks is set inside result.xml
+        setContentView(R.layout.result);
+
+		//initializing the the textviews
+        yesTextView = (TextView) findViewById(R.id.yestimes);
+        noTextView = (TextView) findViewById(R.id.notimes);
+
+        //Runs the method to find the total number of yess and nos
+        initializeTextViews();
+
+        //Initializes the facebook and finished button
+        finished = (Button) findViewById(R.id.confirm);
+        facebook = (Button) findViewById(R.id.facebook);
+        next= (Button) findViewById(R.id.next);
+        //Sets an onClickListener for the finished button
+        finished.setOnClickListener(new OnClickListener()
+
+        {
+            @Override
+            //If clicked, call the finish method
+            public void onClick(View v) {
+                //this has the finished button return to the welcome page
+                Intent intent = new Intent(Result.this, Main.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+            }
+        });
+
+
+        facebook.setOnClickListener(this);
+        //this has facebook launch result to take you to the mainactivity
+        facebook.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchResultActivity();
+            }
+        });
+        //initializes the next buttons
+        next = (Button) findViewById(R.id.next);
+        next.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v)
+    {
+        //so this is pulling all the percentages for each question
+        double percent1 = getIntent().getExtras().getDouble(Question.TAG_P1);
+        double percent2 = getIntent().getExtras().getDouble(Question.TAG_P2);
+        double percent3 = getIntent().getExtras().getDouble(Question.TAG_P3);
+        double percent4 = getIntent().getExtras().getDouble(Question.TAG_P4);
+        double percent5 = getIntent().getExtras().getDouble(Question.TAG_P5);
+        double percent6 = getIntent().getExtras().getDouble(Question.TAG_P6);
+        double percent7 = getIntent().getExtras().getDouble(Question.TAG_P7);
+        double percent8 = getIntent().getExtras().getDouble(Question.TAG_P8);
+        double percent9 = getIntent().getExtras().getDouble(Question.TAG_P9);
+        double percent10 = getIntent().getExtras().getDouble(Question.TAG_P10);
+        double percent11 = getIntent().getExtras().getDouble(Question.TAG_P11);
+        double percent12 = getIntent().getExtras().getDouble(Question.TAG_P12);
+        double percent13 = getIntent().getExtras().getDouble(Question.TAG_P13);
+        double percent14 = getIntent().getExtras().getDouble(Question.TAG_P14);
+        double percent15 = getIntent().getExtras().getDouble(Question.TAG_P15);
+        double percent16 = getIntent().getExtras().getDouble(Question.TAG_P16);
+        double percent17 = getIntent().getExtras().getDouble(Question.TAG_P17);
+        double percent18 = getIntent().getExtras().getDouble(Question.TAG_P18);
+        double percent19 = getIntent().getExtras().getDouble(Question.TAG_P19);
+
+       //increments the counter to take you to the next result page
+        counter = counter + 1;
+        if (counter == 1) {
+            //changes the next button text
+            TextView tv = (TextView) findViewById(R.id.next);
+            tv.setText("Next");
+            //changes the question
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Is this your first time voting?");
+            //changes the number of yes votes to the percentages
+            TextView wv = (TextView) findViewById(R.id.yestimes);
+            wv.setText("Percentage of yes votes: ");
+            //changes the number of no votes to the percentages
+            TextView yv = (TextView) findViewById(R.id.notimes);
+            yv.setText("Percentage of no votes: ");
+
+
+            String currentYesText1 = yesTextView.getText().toString();
+            double tmp = Math.round(percent1);  //this fixes the sig figs
+            currentYesText1 = currentYesText1 + tmp + "%";  //sets the output for yes percentage
+            String currentNoText1 = noTextView.getText().toString();
+            double percentno = 100 - tmp;   //finding the no percentage
+            currentNoText1 =  currentNoText1 + percentno + "%"; //sets the output for the no percentage
+            yesTextView.setText(currentYesText1);   //assigning the value of yes
+            noTextView.setText(currentNoText1);     //assigning the value of no
+        }
+
+        if (counter == 2) {
+            //initializes the yes votes string, no repeats of percentages
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            //the same as counter 1, just customized variables for each counter
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you own a cat?");
+
+            String currentYesText2 = yesTextView.getText().toString();
+            double tmp = Math.round(percent2);
+            currentYesText2 = currentYesText2 + tmp +  "%";
+
+            String currentNoText2 = noTextView.getText().toString();
+            double percentno = 100 - tmp ;
+            currentNoText2 = currentNoText2 + percentno + "%";
+            yesTextView.setText(currentYesText2);
+            noTextView.setText(currentNoText2);
+
+        }
+        if (counter == 3) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you own a dog?");
+
+            String currentYesText3 = yesTextView.getText().toString();
+            double tmp = Math.round(percent3);
+            currentYesText3 = currentYesText3 + tmp + "%";
+
+            String currentNoText3 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText3 = currentNoText3 + percentno + "%";
+            yesTextView.setText(currentYesText3);
+            noTextView.setText(currentNoText3);
+
+        }
+        if (counter == 4) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Have you ever been in love?");
+
+            String currentYesText4 = yesTextView.getText().toString();
+            double tmp = Math.round(percent4);
+            currentYesText4 = currentYesText4 + tmp + "%";
+
+            String currentNoText4 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText4 = currentNoText4 + percentno + "%";
+            yesTextView.setText(currentYesText4);
+            noTextView.setText(currentNoText4);
+
+        }
+        if (counter == 5) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you believe aliens exist?");
+
+            String currentYesText5 = yesTextView.getText().toString();
+            double tmp = Math.round(percent5);
+            currentYesText5 = currentYesText5 + tmp + "%";
+
+            String currentNoText5 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText5 = currentNoText5 + percentno + "%";
+            yesTextView.setText(currentYesText5);
+            noTextView.setText(currentNoText5);
+
+        }
+        if (counter == 6) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Have you ever seen a ghost?");
+
+            String currentYesText6 = yesTextView.getText().toString();
+            double tmp = Math.round(percent6);
+            currentYesText6 = currentYesText6 + tmp + "%";
+
+            String currentNoText6 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText6 = currentNoText6 + percentno + "%";
+            yesTextView.setText(currentYesText6);
+            noTextView.setText(currentNoText6);
+
+        }
+        if (counter == 7) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you like Boston?");
+
+            String currentYesText7 = yesTextView.getText().toString();
+            double tmp = Math.round(percent7);
+            currentYesText7 = currentYesText7 + tmp + "%";
+
+            String currentNoText7 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText7 = currentNoText7 + percentno + "%";
+            yesTextView.setText(currentYesText7);
+            noTextView.setText(currentNoText7);
+
+        }
+        if (counter == 8) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you like ice cream?");
+
+            String currentYesText8 = yesTextView.getText().toString();
+            double tmp = Math.round(percent8);
+            currentYesText8 = currentYesText8 + tmp + "%";
+
+            String currentNoText8 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText8 = currentNoText8 + percentno + "%";
+            yesTextView.setText(currentYesText8);
+            noTextView.setText(currentNoText8);
+
+        }
+        if (counter == 9) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you like country music?");
+
+            String currentYesText9 = yesTextView.getText().toString();
+            double tmp = Math.round(percent9);
+            currentYesText9 = currentYesText9 + tmp + "%";
+
+            String currentNoText9 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText9 = currentNoText9 + percentno + "%";
+            yesTextView.setText(currentYesText9);
+            noTextView.setText(currentNoText9);
+
+        }
+        if (counter == 10) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Should Hilary Clinton be the next president?");
+
+            String currentYesText10 = yesTextView.getText().toString();
+            double tmp = Math.round(percent10);
+            currentYesText10 = currentYesText10 + tmp + "%";
+
+            String currentNoText10 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText10 = currentNoText10 + percentno + "%";
+            yesTextView.setText(currentYesText10);
+            noTextView.setText(currentNoText10);
+
+        }
+        if (counter == 11) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you believe in God?");
+
+            String currentYesText11 = yesTextView.getText().toString();
+            double tmp = Math.round(percent11);
+            currentYesText11 = currentYesText11 + tmp + "%";
+
+            String currentNoText11 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText11 = currentNoText11 + percentno + "%";
+            yesTextView.setText(currentYesText11);
+            noTextView.setText(currentNoText11);
+
+        }
+        if (counter == 12) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Would you ever go skydiving?");
+
+            String currentYesText12 = yesTextView.getText().toString();
+            double tmp = Math.round(percent12);
+            currentYesText12 = currentYesText12 + tmp + "%";
+
+            String currentNoText12 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText12 = currentNoText12 + percentno + "%";
+            yesTextView.setText(currentYesText12);
+            noTextView.setText(currentNoText12);
+
+        }
+        if (counter == 13) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Have you ever been outside America?");
+
+            String currentYesText13 = yesTextView.getText().toString();
+            double tmp = Math.round(percent13);
+            currentYesText13 = currentYesText13 + tmp + "%";
+
+            String currentNoText13 = noTextView.getText().toString();
+            double percentno = 100 - percent13;
+            currentNoText13 = currentNoText13 + tmp + "%";
+            yesTextView.setText(currentYesText13);
+            noTextView.setText(currentNoText13);
+
+        }
+        if (counter == 14) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Should Tsaernev get the death penalty?");
+
+            String currentYesText14 = yesTextView.getText().toString();
+            double tmp = Math.round(percent14);
+            currentYesText14 = currentYesText14 + tmp + "%";
+
+            String currentNoText14 = noTextView.getText().toString();
+            double percentno = 100 - percent14;
+            currentNoText14 = currentNoText14 + tmp + "%";
+            yesTextView.setText(currentYesText14);
+            noTextView.setText(currentNoText14);
+
+        }
+        if (counter == 15) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you like romantic comedies?");
+
+            String currentYesText15 = yesTextView.getText().toString();
+            double tmp = Math.round(percent15);
+            currentYesText15 = currentYesText15 + tmp + "%";
+
+            String currentNoText15 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText15 = currentNoText15 + percentno + "%";
+            yesTextView.setText(currentYesText15);
+            noTextView.setText(currentNoText15);
+
+        }
+        if (counter == 16) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you read for fun?");
+
+            String currentYesText16 = yesTextView.getText().toString();
+            double tmp = Math.round(percent16);
+            currentYesText16 = currentYesText16 + tmp + "%";
+
+            String currentNoText16 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText16 = currentNoText16 + percentno + "%";
+            yesTextView.setText(currentYesText16);
+            noTextView.setText(currentNoText16);
+
+        }
+        if (counter == 17) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Can you lick your elbow?");
+
+            String currentYesText17 = yesTextView.getText().toString();
+            double tmp = Math.round(percent17);
+            currentYesText17 = currentYesText17 + tmp + "%";
+
+            String currentNoText17 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText17 = currentNoText17 + percentno + "%";
+            yesTextView.setText(currentYesText17);
+            noTextView.setText(currentNoText17);
+
+        }
+        if (counter == 18) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Did you just try to lick your elbow?");
+
+            String currentYesText18 = yesTextView.getText().toString();
+            double tmp = Math.round(percent18);
+            currentYesText18 = currentYesText18 + tmp + "%";
+
+            String currentNoText18 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText18 = currentNoText18 + percentno + "%";
+            yesTextView.setText(currentYesText18);
+            noTextView.setText(currentNoText18);
+
+        }
+        if (counter == 19) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Do you like oranges?");
+
+            String currentYesText19 = yesTextView.getText().toString();
+            double tmp = Math.round(percent19);
+            currentYesText19 = currentYesText19 + tmp + "%";
+
+            String currentNoText19 = noTextView.getText().toString();
+            double percentno = 100 - tmp;
+            currentNoText19 = currentNoText19 + percentno + "%";
+            yesTextView.setText(currentYesText19);
+            noTextView.setText(currentNoText19);
+
+        }
+        if (counter == 20) {
+            yesTextView.setText("Percentage of yes votes: ");
+            noTextView.setText("Percentage of no votes: ");
+            TextView mv = (TextView) findViewById(R.id.questions);
+            mv.setText("Did we get an A on this project?");
+
+            String currentYesText20 = yesTextView.getText().toString();
+
+            currentYesText20 = currentYesText20 + 100 + "%";
+
+            String currentNoText20 = noTextView.getText().toString();
+            double percentno = 0;
+            currentNoText20 = currentNoText20 + percentno + "%";
+            yesTextView.setText(currentYesText20);
+            noTextView.setText(currentNoText20);
+
+        }
+    }
+
+    private void launchResultActivity(){
+
+        Intent resultActivity=new Intent(Result.this,MainActivity.class);
+
+        startActivity(resultActivity);
+    }
+
+
+    @Override
+    public View findViewById(int id) {
+        return super.findViewById(id);
+    }
+
+    private void initializeTextViews()
+    {
+        //Sets doubles according to the values "pushed" from Main.java
+        double yes = getIntent().getExtras().getDouble(Question.TAG_YES);
+        double no = getIntent().getExtras().getDouble(Question.TAG_NO);
+
+        //Sets the strings accordingly
+        String currentYesText = yesTextView.getText().toString();
+
+        currentYesText = currentYesText +  yes;
+
+        String currentNoText = noTextView.getText().toString();
+
+        currentNoText = currentNoText +  no;
+
+        //Sets the texts to display the values
+        yesTextView.setText(currentYesText);
+        noTextView.setText(currentNoText);
+    }
+}
